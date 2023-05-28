@@ -10,6 +10,7 @@ const APP_NAME = 'Movies';
 
 export const metadata: Metadata = {
   title: APP_NAME,
+  // eslint-disable-next-line sonarjs/no-duplicate-string
   description: 'Next.js + TMDB API + TailwindCSS v3 + TypeScript template',
   viewport: {
     width: 'device-width',
@@ -35,8 +36,12 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
+    images:
+      'https://og.sznm.dev/api/generate?heading=Movies&text=List+of+movies+using+NextJS+13.4+RSC&template=color&center=true',
     creator: '@pengenradiant',
     card: 'summary_large_image',
+    description: 'Next.js + TMDB API + TailwindCSS v3 + TypeScript template',
+    title: APP_NAME,
   },
 };
 
