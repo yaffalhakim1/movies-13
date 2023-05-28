@@ -2,6 +2,7 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useUpcomingMovies, useNowPlayingMovies } from '@/data/useMovie';
 import { Button } from '@/lib/components/ui/button';
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col  mt-6 ">
-      <div className="flex justify-between px-36">
+      <div className="flex justify-between md:px-36 px-8">
         <h1 className="text-2xl font-bold text-center">Upcoming Movies</h1>
         <Button className="ml-4">See All</Button>
       </div>
@@ -35,19 +36,21 @@ const Home: NextPage = () => {
         {upcoming?.map((upcomingMovie) => (
           <div key={upcomingMovie.id} className="relative">
             <div className="w-40 h-60 ">
-              <Image
-                src={`https://image.tmdb.org/t/p/w500${upcomingMovie.poster_path}`}
-                alt={upcomingMovie.title}
-                width={160}
-                height={240}
-                className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
-              />
+              <Link href={`/upcoming/${upcomingMovie.id}`}>
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500${upcomingMovie.poster_path}`}
+                  alt={upcomingMovie.title}
+                  width={160}
+                  height={240}
+                  className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
+                />
+              </Link>
             </div>
           </div>
         ))}
       </div>
       <div className="mt-8">
-        <div className="flex justify-between px-36">
+        <div className="flex justify-between md:px-36 px-8">
           <h1 className="text-2xl font-bold text-center">Now Playing</h1>
           <Button className="ml-4">See All</Button>
         </div>{' '}
@@ -63,9 +66,6 @@ const Home: NextPage = () => {
                   className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
                 />
               </div>
-              {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent py-2 px-4 text-white text-sm">
-                <p className="font-bold">{movie.title}</p>
-              </div> */}
             </div>
           ))}
         </div>

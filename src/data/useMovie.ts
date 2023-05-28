@@ -7,6 +7,18 @@ type Movie = {
   title: string;
   release_date: string;
   poster_path: string;
+  backdrop_path: string;
+  overview: string;
+  vote_average: number;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  homepage: string;
+  status: string;
+  revenue: number;
+  runtime: number;
+
   // Add more properties as needed
 };
 
@@ -44,5 +56,24 @@ export const useNowPlayingMovies = () => {
     nowplaying,
     isLoadingNowPlaying: !nowplaying && !error,
     errorNowPlaying: error,
+  };
+};
+
+const fetchDetail = async (id: number) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=317ac2c7a5d96c84f53e8766340f1979`
+  );
+  return response.data as Movie;
+};
+
+export const useDetail = (id: number) => {
+  const { data: detail, error } = useSWR<Movie>(`${id}}`, () =>
+    fetchDetail(id)
+  );
+
+  return {
+    detail,
+    isLoadingDetail: !detail && !error,
+    errorDetail: error,
   };
 };
