@@ -1,25 +1,25 @@
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
-  title: "nextarter-tailwind",
-  titleTemplate: "%s | nextarter-tailwind",
-  defaultTitle: "nextarter-tailwind",
-  description: "Next.js + TailwindCSS v3 + TypeScript template",
-  canonical: "https://nextarter-tailwind.sznm.dev",
+  title: 'Movies',
+  titleTemplate: 'Movies',
+  defaultTitle: 'Movies',
+  description: 'Next.js + TMDB API + TailwindCSS v3 + TypeScript template',
+  canonical: 'https://movies-13.vercel.app/',
   openGraph: {
-    url: "https://nextarter-tailwind.sznm.dev",
-    title: "nextarter-tailwind",
-    description: "Next.js + TailwindCSS v3 + TypeScript template",
+    url: 'https://movies-13.vercel.app/',
+    title: 'Movies',
+    description: 'Next.js + TMDB API + TailwindCSS v3 + TypeScript template',
     images: [
       {
-        url: "https://og-image.sznm.dev/**nextarter-tailwind**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250",
-        alt: "nextarter-tailwind.sznm.dev og-image",
+        url: 'https://og.sznm.dev/api/generate?heading=Movies&text=List+of+movies+using+NextJS+13.4+RSC&template=color&center=true',
+        alt: 'Movies og-image',
       },
     ],
-    site_name: "nextarter-tailwind",
+    site_name: 'Movies',
   },
   twitter: {
-    handle: "@sozonome",
-    cardType: "summary_large_image",
+    handle: '@pengenradiant',
+    cardType: 'summary_large_image',
   },
 };
 
