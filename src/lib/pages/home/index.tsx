@@ -58,13 +58,15 @@ const Home: NextPage = () => {
           {nowplaying?.map((now) => (
             <div key={now.id} className="relative">
               <div className="w-40 h-60 ">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${now.poster_path}`}
-                  alt={now.title}
-                  width={160}
-                  height={240}
-                  className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
-                />
+                <Link href={`/upcoming/${now.id}`}>
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${now.poster_path}`}
+                    alt={now.title}
+                    width={160}
+                    height={240}
+                    className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
+                  />
+                </Link>
               </div>
             </div>
           ))}
