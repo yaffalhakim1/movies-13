@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchIcon } from 'lucide-react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col  mt-6 ">
+      <SearchIcon className="w-6 h-6 md:ml-36 ml-8 mb-6" />
       <div className="flex justify-between md:px-36 px-8">
         <h1 className="text-2xl font-bold text-center">Upcoming Movies</h1>
         <Link href="/upcomings">
