@@ -2,7 +2,7 @@
 import axios from 'axios';
 import useSWR from 'swr';
 
-type Movie = {
+export type Movie = {
   id: number;
   title: string;
   release_date: string;
@@ -23,8 +23,14 @@ type Movie = {
   name: string;
   tagline: string;
   file_path: string;
+  total_pages: number;
 
   // Add more properties as needed
+};
+
+export type Results = {
+  results: Movie[];
+  total_pages: number;
 };
 
 const fetchMovies = async () => {
@@ -139,3 +145,56 @@ export const useBackdrop = (id: number) => {
     errorBackdrop: error,
   };
 };
+
+// const fetchAllUpcoming = async (page: number) => {
+//   const response = await axios.get(
+//     `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}}`
+//   );
+//   return response.data.results as Movie[];
+// };
+
+// export const useAllUpcoming = () => {
+//   const { data: allUpcoming, error } = useSWR<Movie[]>(
+//     'upcoming',
+//     fetchAllUpcoming
+//   );
+
+//   return {
+//     allUpcoming,
+//     isLoadingAllUpcoming: !allUpcoming && !error,
+//     errorAllUpcoming: error,
+//   };
+// };
+
+// const fetchAllUpcoming = async (page: number) => {
+//   const response = await axios.get(
+//     `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`
+//   );
+//   return response.data.results as Movie[];
+// };
+
+// export const useAllUpcoming = (initialPage = 1) => {
+//   const {
+//     data: allUpcoming,
+//     error,
+//     mutate,
+//   } = useSWR<Movie[]>(`upcoming-${initialPage}`, () =>
+//     fetchAllUpcoming(initialPage)
+//   );
+
+//   const loadMore = async () => {
+//     // eslint-disable-next-line no-unsafe-optional-chaining
+//     const nextPage = allUpcoming?.length / 20 + 1;
+//     const nextPageData = await fetchAllUpcoming(nextPage);
+
+//     // Update the SWR cache and trigger re-render
+//     mutate([...allUpcoming, ...nextPageData], false);
+//   };
+
+//   return {
+//     allUpcoming,
+//     isLoadingAllUpcoming: !allUpcoming && !error,
+//     errorAllUpcoming: error,
+//     loadMore,
+//   };
+// };

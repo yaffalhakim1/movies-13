@@ -30,7 +30,9 @@ const Home: NextPage = () => {
     <div className="flex flex-col  mt-6 ">
       <div className="flex justify-between md:px-36 px-8">
         <h1 className="text-2xl font-bold text-center">Upcoming Movies</h1>
-        <Button className="ml-4">See All</Button>
+        <Link href="/upcomings">
+          <Button className="ml-4">See All</Button>
+        </Link>
       </div>
       <div className="flex w-full overflow-x-scroll space-x-2 py-3 md:ml-36 md:mr-36 ml-10 items-center">
         {upcoming?.map((upcomingMovie) => (

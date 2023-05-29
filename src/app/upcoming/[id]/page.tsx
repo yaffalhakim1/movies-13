@@ -50,7 +50,7 @@ function DetailMovie({ params }: { params: { id: number } }) {
             alt={detail?.title as string}
             width={300}
             height={450}
-            className="object-cover rounded-md md:ml-auto mx-auto"
+            className="object-cover rounded-md md:ml-auto"
           />
 
           <div className="flex flex-col ml-5">
@@ -114,15 +114,13 @@ function DetailMovie({ params }: { params: { id: number } }) {
           {backdrop?.slice(0, 8).map((sim) => (
             <div key={sim.id}>
               <div className="w-[160px] h-auto">
-                <Link href={`/upcoming/${sim.id}`}>
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original${sim.file_path}`}
-                    alt={sim.title as string}
-                    width={160}
-                    height={240}
-                    className="object-cover rounded-md hover:scale-105 transition ease-in-out duration-150"
-                  />
-                </Link>
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${sim.file_path}`}
+                  alt={sim.title as string}
+                  width={160}
+                  height={240}
+                  className="object-cover rounded-md hover:scale-105 transition ease-in-out duration-150"
+                />
               </div>
             </div>
           ))}
