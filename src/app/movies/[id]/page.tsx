@@ -120,6 +120,8 @@ function DetailMovie({ params }: { params: { id: number } }) {
                   width={160}
                   height={240}
                   className="object-cover rounded-md hover:scale-105 transition ease-in-out duration-150"
+                  blurDataURL={`https://image.tmdb.org/t/p/original${sim.file_path}`}
+                  placeholder="blur"
                 />
               </div>
             </div>

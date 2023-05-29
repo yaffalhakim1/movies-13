@@ -9,7 +9,7 @@ import useSWR from 'swr';
 import type { Movie } from '@/data/useMovie';
 import { Button } from '@/lib/components/ui/button';
 
-function UpcomingMovies() {
+function NowPlayings() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +21,7 @@ function UpcomingMovies() {
   };
 
   const { data, error } = useSWR<Movie[]>(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
     fetcher
   );
 
@@ -33,7 +33,7 @@ function UpcomingMovies() {
     return <div className="text-center">Loading...</div>;
   }
 
-  const allUpcoming = data;
+  const allNowPlaying = data;
 
   const goToNextPage = () => {
     setPage((currentPage) => currentPage + 1);
@@ -45,7 +45,7 @@ function UpcomingMovies() {
 
   return (
     <div className="wrapper">
-      <h1 className="text-2xl font-bold mb-5">Upcoming Movies</h1>
+      <h1 className="text-2xl font-bold mb-5">Now Playing</h1>
       <div className="flex justify-between mb-4">
         {page > 1 ? (
           <Button onClick={goToPrevPage} className="">
@@ -73,7 +73,7 @@ function UpcomingMovies() {
         )}
       </div>
       <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
-        {allUpcoming?.map((movie) => (
+        {allNowPlaying?.map((movie) => (
           <div
             key={movie.id}
             className={`relative ${
@@ -124,4 +124,4 @@ function UpcomingMovies() {
   );
 }
 
-export default UpcomingMovies;
+export default NowPlayings;
