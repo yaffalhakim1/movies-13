@@ -4,6 +4,8 @@ import { SearchIcon } from 'lucide-react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ProgressBar } from 'react-loader-spinner';
 
 import { useUpcomingMovies, useNowPlayingMovies } from '@/data/useMovie';
 import { Button } from '@/lib/components/ui/button';
@@ -14,14 +16,38 @@ const Home: NextPage = () => {
     useNowPlayingMovies();
 
   if (isLoading) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
   if (isLoadingNowPlaying) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
   if (errorNowPlaying) {
     return <div>Error: {errorNowPlaying.message}</div>;
@@ -29,7 +55,9 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col  mt-6 ">
-      <SearchIcon className="w-6 h-6 md:ml-36 ml-8 mb-6" />
+      <Link href="/search">
+        <SearchIcon className="w-6 h-6 md:ml-36 ml-8 mb-6" />
+      </Link>
       <div className="flex justify-between md:px-36 px-8">
         <h1 className="text-2xl font-bold text-center">Upcoming Movies</h1>
         <Link href="/upcomings">
@@ -42,7 +70,11 @@ const Home: NextPage = () => {
             <div className="w-40 h-60 ">
               <Link href={`/movies/${upcomingMovie.id}`}>
                 <Image
-                  src={`https://image.tmdb.org/t/p/w500${upcomingMovie.poster_path}`}
+                  src={
+                    upcomingMovie.poster_path
+                      ? `https://image.tmdb.org/t/p/original${upcomingMovie.poster_path}`
+                      : '/assets/fallbackimage.png'
+                  }
                   alt={upcomingMovie.title}
                   width={160}
                   height={240}
@@ -68,7 +100,11 @@ const Home: NextPage = () => {
               <div className="w-40 h-60 ">
                 <Link href={`/movies/${now.id}`}>
                   <Image
-                    src={`https://image.tmdb.org/t/p/w500${now.poster_path}`}
+                    src={
+                      now.poster_path
+                        ? `https://image.tmdb.org/t/p/original${now.poster_path}`
+                        : '/assets/fallbackimage.png'
+                    }
                     alt={now.title}
                     width={160}
                     height={240}

@@ -3,7 +3,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ProgressBar } from 'react-loader-spinner';
 
 import { useDetail, useCredit, useBackdrop } from '@/data/useMovie';
 import { Avatar, AvatarImage } from '@/lib/components/ui/avatar';
@@ -12,41 +15,125 @@ import { Button } from '@/lib/components/ui/button';
 
 function DetailMovie({ params }: { params: { id: number } }) {
   const { id } = params;
+  const router = useRouter();
 
   const { detail, isLoadingDetail, errorDetail } = useDetail(id);
   const { credit, isLoadingCredit, errorCredit } = useCredit(id);
   const { backdrop, isLoadingBackdrop, errorBackdrop } = useBackdrop(id);
 
   if (isLoadingDetail) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
   if (errorDetail) {
-    return <div>Error: {errorDetail.message}</div>;
+    return (
+      <div className="grid gap-2 p-12 text-center">
+        <Image
+          src="/assets/404 Error-amico.svg"
+          width={320}
+          height={320}
+          alt="404 Illustration"
+        />
+        <Button variant="link" asChild>
+          <a href="https://storyset.com/web" className="text-xs">
+            Web illustrations by Storyset
+          </a>
+        </Button>
+      </div>
+    );
   }
 
   if (isLoadingCredit) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
   if (errorCredit) {
-    return <div className="text-center">Error: {errorCredit.message}</div>;
+    return (
+      <div className="grid gap-2 p-12 text-center">
+        <Image
+          src="/assets/404 Error-amico.svg"
+          width={320}
+          height={320}
+          alt="404 Illustration"
+        />
+        <Button variant="link" asChild>
+          <a href="https://storyset.com/web" className="text-xs">
+            Web illustrations by Storyset
+          </a>
+        </Button>
+      </div>
+    );
   }
 
   if (isLoadingBackdrop) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
   if (errorBackdrop) {
-    return <div className="text-center">Error: {errorBackdrop.message}</div>;
+    return (
+      <div className="grid gap-2 p-12 text-center">
+        <Image
+          src="/assets/404 Error-amico.svg"
+          width={320}
+          height={320}
+          alt="404 Illustration"
+        />
+        <Button variant="link" asChild>
+          <a href="https://storyset.com/web" className="text-xs">
+            Web illustrations by Storyset
+          </a>
+        </Button>
+      </div>
+    );
   }
 
   return (
     <div>
       <div className="justify-center mt-10 mx-auto md:px-24 px-5">
-        <Link href="/">
-          <Button className="mb-4 ml-5 md:ml-0">Back</Button>
-        </Link>
+        <Button onClick={() => router.back()} className="mb-4 ml-5 md:ml-0">
+          Back
+        </Button>
+
         <div className="md:flex">
           <Image
-            src={`https://image.tmdb.org/t/p/original${detail?.poster_path}`}
+            src={
+              detail?.poster_path
+                ? `https://image.tmdb.org/t/p/original${detail.poster_path}`
+                : '/assets/fallbackimage.png'
+            }
             alt={detail?.title as string}
             width={300}
             height={450}

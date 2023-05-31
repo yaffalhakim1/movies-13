@@ -9,7 +9,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            yafialhakim - this website using template from
+            yafialhakim - template from{' '}
             <span>
               <a
                 href="https://nextarter-tailwind.sznm.dev/"

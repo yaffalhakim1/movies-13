@@ -4,6 +4,8 @@ import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ProgressBar } from 'react-loader-spinner';
 import useSWR from 'swr';
 
 import type { Movie } from '@/data/useMovie';
@@ -26,11 +28,37 @@ function UpcomingMovies() {
   );
 
   if (error) {
-    return <div className="text-center">Error: {error.message}</div>;
+    return (
+      <div className="grid gap-2 p-12 text-center">
+        <Image
+          src="/assets/404 Error-amico.svg"
+          width={320}
+          height={320}
+          alt="404 Illustration"
+        />
+        <Button variant="link" asChild>
+          <a href="https://storyset.com/web" className="text-xs">
+            Web illustrations by Storyset
+          </a>
+        </Button>
+      </div>
+    );
   }
 
   if (!data) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mx-auto text-center">
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#eff6ff"
+          barColor="#2563eb"
+        />
+      </div>
+    );
   }
 
   const allUpcoming = data;
@@ -57,7 +85,19 @@ function UpcomingMovies() {
           </Button>
         )}
 
-        {isLoading ?? <div className="text-center">Loading...</div>}
+        {isLoading ?? (
+          <div className="flex justify-center items-center mx-auto text-center">
+            <ProgressBar
+              height="80"
+              width="80"
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass="progress-bar-wrapper"
+              borderColor="#eff6ff"
+              barColor="#2563eb"
+            />
+          </div>
+        )}
         <div>
           Page <span className="font-semibold">{page}</span>
         </div>
@@ -83,7 +123,11 @@ function UpcomingMovies() {
             <div className="w-40 h-60 ">
               <Link href={`/movies/${movie.id}`}>
                 <Image
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                      : '/assets/fallbackimage.png'
+                  }
                   alt={movie.title}
                   width={160}
                   height={240}

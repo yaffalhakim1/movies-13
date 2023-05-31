@@ -36,8 +36,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    images:
+    images: [
       'https://og.sznm.dev/api/generate?heading=Movies&text=List+of+movies+using+NextJS+13.4+RSC&template=color&center=true',
+    ],
     creator: '@pengenradiant',
     card: 'summary_large_image',
     description: 'Next.js + TMDB API + TailwindCSS v3 + TypeScript template',
