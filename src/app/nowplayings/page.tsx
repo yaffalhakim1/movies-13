@@ -1,6 +1,8 @@
 'use client';
 
 import axios from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -114,11 +116,18 @@ function NowPlayings() {
       </div>
       <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
         {allNowPlaying?.map((movie) => (
-          <div
+          <motion.div
             key={movie.id}
             className={`relative ${
               isLoading ? 'opacity-0' : 'opacity-100 animate-fade-in'
             }`}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0, scale: 0 },
+              visible: { opacity: 1, scale: 1 },
+            }}
+            transition={{ duration: 0.5 }}
           >
             <div className="w-40 h-60 ">
               <Link href={`/movies/${movie.id}`}>
@@ -137,7 +146,7 @@ function NowPlayings() {
                 />
               </Link>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="flex justify-between mt-4">

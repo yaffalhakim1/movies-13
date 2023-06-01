@@ -1,12 +1,14 @@
 'use client';
 
 import axios from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ProgressBar } from 'react-loader-spinner';
-import useSWR from 'swr';
+import useSWR, { preload } from 'swr';
 
 import type { Movie } from '@/data/useMovie';
 import { Button } from '@/lib/components/ui/button';
@@ -21,6 +23,11 @@ function UpcomingMovies() {
     setIsLoading(false);
     return response.data.results as Movie[];
   };
+
+  preload(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
+    fetcher
+  );
 
   const { data, error } = useSWR<Movie[]>(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`,
@@ -112,7 +119,7 @@ function UpcomingMovies() {
           </Button>
         )}
       </div>
-      <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
+      {/* <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
         {allUpcoming?.map((movie) => (
           <div
             key={movie.id}
@@ -138,6 +145,41 @@ function UpcomingMovies() {
               </Link>
             </div>
           </div>
+        ))}
+      </div> */}
+      <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
+        {allUpcoming?.map((movie) => (
+          <motion.div
+            key={movie.id}
+            className={`relative ${
+              isLoading ? 'opacity-0' : 'opacity-100 animate-fade-in'
+            }`}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0, scale: 0 },
+              visible: { opacity: 1, scale: 1 },
+            }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="w-40 h-60 ">
+              <Link href={`/movies/${movie.id}`}>
+                <Image
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                      : '/assets/fallbackimage.png'
+                  }
+                  alt={movie.title}
+                  width={160}
+                  height={240}
+                  className="object-cover rounded-md hover:scale-105 hover:opacity-75 transition ease-in-out duration-150"
+                  blurDataURL={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  placeholder="blur"
+                />
+              </Link>
+            </div>
+          </motion.div>
         ))}
       </div>
       <div className="flex justify-between mt-4">
