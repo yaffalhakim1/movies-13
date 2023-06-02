@@ -25,5 +25,6 @@ module.exports = withPWA({
         port: '',
       },
     ],
+    unoptimized: true,
   },
 });
